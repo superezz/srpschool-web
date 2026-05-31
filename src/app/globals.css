@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-ink-950 text-slate-200 font-sans antialiased;
+  }
+
+  /* Subtle starfield / grain backdrop layer applied on the body wrapper */
+  ::selection {
+    @apply bg-gold-400/30 text-white;
+  }
+}
+
+@layer components {
+  /* Gold gradient text used for highlight words */
+  .text-gradient-gold {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(120deg, #fbe7b0 0%, #f2bd4d 45%, #c8861a 100%);
+  }
+
+  .text-gradient-royal {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(120deg, #c7ceff 0%, #7c8cff 50%, #5b6cff 100%);
+  }
+
+  /* Glass card */
+  .glass {
+    @apply border border-white/10 bg-white/[0.04] backdrop-blur-md;
+  }
+
+  /* Section padding helper */
+  .section {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-8;
+  }
+
+  /* Pill / kicker label */
+  .kicker {
+    @apply inline-flex items-center gap-2 rounded-full border border-gold-400/30 bg-gold-400/10
+           px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-gold-300;
+  }
+
+  /* Primary button */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-gold-400 px-6 py-3
+           text-sm font-bold text-ink-950 shadow-glow transition-all duration-300
+           hover:bg-gold-300 hover:shadow-[0_0_70px_-10px_rgba(242,189,77,0.7)]
+           focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-300;
+  }
+
+  /* Secondary / ghost button */
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/20
+           bg-white/5 px-6 py-3 text-sm font-semibold text-white transition-all duration-300
+           hover:border-white/40 hover:bg-white/10
+           focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30;
+  }
+}
+
+@layer utilities {
+  /* Radial spotlight background used in hero */
+  .bg-spotlight {
+    background:
+      radial-gradient(60% 50% at 20% 10%, rgba(91, 108, 255, 0.18) 0%, transparent 60%),
+      radial-gradient(50% 50% at 85% 20%, rgba(242, 189, 77, 0.16) 0%, transparent 55%),
+      radial-gradient(80% 80% at 50% 100%, rgba(13, 19, 40, 0.9) 0%, #05070f 70%);
+  }
+
+  /* Fine grid overlay */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  /* Scroll reveal base + visible states (toggled by Reveal component) */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    .animate-kenburns,
+    .animate-float,
+    .animate-marquee,
+    .animate-shimmer {
+      animation: none !important;
+    }
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
